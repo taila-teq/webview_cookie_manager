@@ -46,12 +46,9 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
         channel.setMethodCallHandler(new WebviewCookieManagerPlugin());
     }
 
-    private static void setAcceptCookies(final Result result) {
+    private static void flushCookies(final Result result) {
         CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.setAcceptCookie(true);
-        cookieManager.acceptCookie();
-        CookieManager.setAcceptFileSchemeCookies(true);
-        CookieManager.getInstance().setAcceptCookie(true);
+        cookieManager.flush();
         result.success(null);
     }
 
@@ -187,8 +184,8 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
             case "setCookies":
                 setCookies(methodCall, result);
                 break;
-            case "acceptCookies":
-                setAcceptCookies(result);
+            case "flushCookies":
+                flushCookies(result);
                 break;
             default:
                 result.notImplemented();
