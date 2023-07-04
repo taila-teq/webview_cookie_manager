@@ -15,6 +15,13 @@ class WebviewCookieManager {
 
   static WebviewCookieManager? _instance;
 
+  /// Set cookies accepted
+  Future<bool> setAcceptCookies() {
+    return _channel
+        .invokeMethod<bool>('acceptCookies')
+        .then<bool>((bool? result) => result ?? false);
+  }
+
   /// Gets whether there are stored cookies
   Future<bool> hasCookies() {
     return _channel
